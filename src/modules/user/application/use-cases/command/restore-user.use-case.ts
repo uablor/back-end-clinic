@@ -1,0 +1,12 @@
+import { Inject, Injectable } from "@nestjs/common";
+import { UserRepository } from "src/modules/user/domain/user.repository";
+
+@Injectable()
+export class RestoreUserUseCase {
+    constructor(
+        @Inject('UserRepository') private readonly userRepository: UserRepository
+    ) { }
+    async execute(id: number): Promise<{ message: string }> {
+        return await this.userRepository.restore(id);
+    }
+}

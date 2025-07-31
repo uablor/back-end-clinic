@@ -1,0 +1,25 @@
+// create module
+mkdir -p src/modules/time_woking/application/use-cases/command \
+         src/modules/time_woking/application/use-cases/query \
+         src/modules/time_woking/application/dto \
+         src/modules/time_woking/domain \
+         src/modules/time_woking/mapper \
+         src/modules/time_woking/interface \
+         src/modules/time_woking/infrastructure \
+         src/modules/time_woking/controller && \
+touch src/modules/time_woking/application/dto/create-time_woking.dto.ts \
+      src/modules/time_woking/domain/time_woking.ts \
+      src/modules/time_woking/domain/time_woking.repository.ts \
+      src/modules/time_woking/interface/time_woking.interface.ts \
+      src/modules/time_woking/infrastructure/time_woking.repository.orm.ts \
+      src/modules/time_woking/mapper/time_woking.mapper.ts \
+      src/modules/time_woking/controller/time_woking.controller.ts \
+      src/modules/time_woking/time_woking.module.ts \
+touch src/modules/time_woking/application/use-cases/command/create-time_woking.use-case.ts \
+      src/modules/time_woking/application/use-cases/query/get-all-time_woking.use-case.ts \
+      src/modules/time_woking/application/use-cases/query/get-one-time_woking.use-case.ts \
+      src/modules/time_woking/application/use-cases/command/hard-delete-time_woking.use-case.ts \
+      src/modules/time_woking/application/use-cases/command/soft-delete-time_woking.use-case.ts \
+      src/modules/time_woking/application/use-cases/command/restore-time_woking.use-case.ts \
+      src/modules/time_woking/application/use-cases/command/update-time_woking.use-case.ts
+      

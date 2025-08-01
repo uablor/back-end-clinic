@@ -16,7 +16,7 @@ export class UsersSeeder {
         const AllPermissions = await permission.find();
         const items = [
             {
-                name: 'super admin',
+                username: 'super admin',
                 email: 'super_admin@gmail.com',
                 surname: 'super admin',
                 password: await hashPassword('super@1234'),
@@ -26,7 +26,7 @@ export class UsersSeeder {
 
             },
             {
-                name: 'admin',
+                username: 'admin',
                 email: 'admin@gmail.com',
                 surname: 'admin',
                 password: await hashPassword('admin@1234'),
@@ -36,7 +36,7 @@ export class UsersSeeder {
 
             },
             {
-                name: 'phet',
+                username: 'phet',
                 email: 'phetAdmin@gmail.com',
                 surname: 'Phet Admin',
                 password: await hashPassword('12345678phet'),
@@ -45,7 +45,7 @@ export class UsersSeeder {
                 roles: AllRoles
             },
             {
-                name: 'pao',
+                username: 'pao',
                 email: 'pao@gmail.com',
                 surname: 'pao',
                 password: await hashPassword('12345678pao'),
@@ -54,7 +54,7 @@ export class UsersSeeder {
                 roles: AllRoles
             },
             {
-                name: 'oualor',
+                username: 'oualor',
                 email: 'oualor@gmail.com',
                 surname: 'Oualor',
                 password: await hashPassword('12345678oualor'),
@@ -63,7 +63,7 @@ export class UsersSeeder {
                 roles: AllRoles
             },
             {
-                name: 'user',
+                username: 'user',
                 email: 'user@gmail.com',
                 surname: 'user',
                 password: await hashPassword('user@1234'),

@@ -53,7 +53,7 @@ export class ClinicRepositoryOrm implements ClinicRepository {
       sort: query.sort,
       search: {
         kw: query.search,
-        field: 'Employee.name',
+        field: 'clinics.name',
       },
       is_active: query.is_active,
       page: Number(query.page) || 1,

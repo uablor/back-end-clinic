@@ -11,4 +11,5 @@ export interface UserRepository {
     hardDelete(id: number): Promise<{ message: string }>;
     softDelete(id: number): Promise<{ message: string }>;
     restore(id: number): Promise<{ message: string }>;
+    uploadAvatar(userId: number, avatarPath: string): Promise<string|null>;
 }

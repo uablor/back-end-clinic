@@ -12,6 +12,7 @@ export class User implements UserProps {
   public email: string;
   public password: string;
   public is_verified: boolean;
+  public avatar?: string;
   public clinic?: Clinic;
   public roles: Role[];
   public permissions: Permission[];
@@ -24,6 +25,7 @@ export class User implements UserProps {
     this.username = props.username;
     this.email = props.email;
     this.password = props.password;
+    this.avatar = props.avatar;
     this.is_verified = props.is_verified ?? false;
     this.clinic = props.clinic ?? undefined;
     this.roles = props.roles ?? [];

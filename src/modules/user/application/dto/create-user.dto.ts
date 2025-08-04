@@ -32,4 +32,8 @@ export class CreateUserDto{
     @IsNumber()
     clinic: number;
 
+    @IsOptional()
+    @IsString()
+    avatar?: string
+
 }

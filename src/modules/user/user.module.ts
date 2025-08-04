@@ -12,6 +12,7 @@ import { SoftDeleteUserUseCase } from './application/use-cases/command/soft-dele
 import { RestoreUserUseCase } from './application/use-cases/command/restore-user.use-case';
 import { UpdateUserUseCase } from './application/use-cases/command/update-user.use-case';
 import { ClinicModule } from '../clinic/clinic.module';
+import { UploadAvatarUserUseCase } from './application/use-cases/command/uploadavatar-use-case';
 
 
 @Module({
@@ -30,11 +31,13 @@ import { ClinicModule } from '../clinic/clinic.module';
     SoftDeleteUserUseCase,
     RestoreUserUseCase,
     UpdateUserUseCase,
+    UploadAvatarUserUseCase,
   ],
   exports: [
     GetUserByEmailUseCase,
     GetOneUserUseCase,
     CreateUserUseCase,
+    UploadAvatarUserUseCase,
     {
       provide: 'UserRepository',
       useClass: UserRepositoryOrm,

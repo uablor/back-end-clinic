@@ -4,6 +4,7 @@ import { UserEntity } from 'src/infrastructure/typeorm/user.orm-entity';
 import { hashPassword } from 'src/shared/utils/bcrypt.util';
 import { PermissionsEntity } from 'src/infrastructure/typeorm/permissions.orm-entity';
 import { RoleEntity } from 'src/infrastructure/typeorm/role.orm-entity';
+import { ClinicEntity } from 'src/infrastructure/typeorm/clinic.orm-entity';
 @Injectable()
 export class UsersSeeder {
   constructor() {}
@@ -12,8 +13,11 @@ export class UsersSeeder {
     const _respository = manager.getRepository(UserEntity);
     const permission = manager.getRepository(PermissionsEntity);
     const role = manager.getRepository(RoleEntity);
+    const clinic = manager.getRepository(ClinicEntity);
     const AllRoles = await role.find({ where: { name: 'super_admin' } });
     const AllPermissions = await permission.find();
+    const AllClinics = await clinic.find();
+
     const items = [
       {
         email: 'super_admin@gmail.com',
@@ -22,6 +26,8 @@ export class UsersSeeder {
         is_verified: true,
         permissions: AllPermissions,
         roles: AllRoles,
+       clinic_id: AllClinics[0]?.id,
+
       },
       {
         email: 'admin@gmail.com',
@@ -30,6 +36,8 @@ export class UsersSeeder {
         is_verified: true,
         permissions: AllPermissions,
         roles: AllRoles,
+        clinic_id: AllClinics[0]?.id,
+
       },
       {
         email: 'phetAdmin@gmail.com',
@@ -38,6 +46,8 @@ export class UsersSeeder {
         is_verified: true,
         permissions: AllPermissions,
         roles: AllRoles,
+        clinic_id: AllClinics[0]?.id,
+
       },
       {
         email: 'pao@gmail.com',
@@ -46,6 +56,8 @@ export class UsersSeeder {
         is_verified: true,
         permissions: AllPermissions,
         roles: AllRoles,
+        clinic_id: AllClinics[0]?.id,
+
       },
       {
         email: 'oualor@gmail.com',
@@ -54,6 +66,8 @@ export class UsersSeeder {
         is_verified: true,
         permissions: AllPermissions,
         roles: AllRoles,
+        clinic_id: AllClinics[0]?.id,
+
       },
       {
         email: 'user@gmail.com',
@@ -62,6 +76,8 @@ export class UsersSeeder {
         is_verified: true,
         permissions: AllPermissions,
         roles: AllRoles,
+        clinic_id: AllClinics[0]?.id,
+
       },
     ];
 

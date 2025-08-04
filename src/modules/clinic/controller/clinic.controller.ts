@@ -14,6 +14,7 @@ import { CreateClinicDto } from "../application/dto/create-clinic.dto";
 import { ClinicMapper } from "../mapper/clinic.mapper";
 import { Clinic } from "../domain/clinic";
 import { UpdateClinicDto } from "../application/dto/update-clinic.dto";
+import { ClinicResponse } from "../interface/clinic.interface";
 
 
 @Controller('clinic')
@@ -40,7 +41,7 @@ export class ClinicController {
 
     // @Permissions('get_all_employee')
     @Get()
-    async getAll(@Query() query: PaginationDto): Promise<PaginatedResponse<Clinic>>{
+    async getAll(@Query() query: PaginationDto): Promise<PaginatedResponse<ClinicResponse>>{
         const Clinic = await this.getAllClinicUseCase.execute(query);
         return ClinicMapper.toResponseList(Clinic.data, Clinic.pagination);
     }

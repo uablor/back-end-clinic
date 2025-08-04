@@ -31,12 +31,12 @@ export class EmployeeEntity extends SharedBaseEntity {
     @JoinColumn()
     user: UserEntity;
 
-    @ManyToOne(() => DistrictEntity, (district) => district.Employee, { nullable: true })
+    @ManyToOne(() => DistrictEntity, (district) => district.employee, { nullable: true })
     district: DistrictEntity
 
     @OneToMany(() => EmployeeEducationsEntity, (education) => education.employee_id)
     educations: EmployeeEducationsEntity[];
 
-    @ManyToOne(() => ClinicEntity, clinic => clinic.Employees)
+    @ManyToOne(() => ClinicEntity, clinic => clinic.employees)
     clinic: ClinicEntity;
 }   

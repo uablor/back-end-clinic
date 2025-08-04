@@ -18,13 +18,17 @@ export class UserRepositoryOrm implements UserRepository {
         private readonly userRepository: Repository<UserEntity>
     ) { }
 
+
     async findAll(query: PaginationDto): Promise<PaginatedResponse<User>> {
         const qb = this.userRepository.createQueryBuilder('user');
         qb
             .withDeleted()
             .leftJoinAndSelect('user.roles', 'roles')
             .leftJoinAndSelect('roles.permissions', 'permissions')
-            .leftJoinAndSelect('user.permissions', 'user_permissions');
+            .leftJoinAndSelect('user.permissions', 'user_permissions')
+            .leftJoinAndSelect('user.clinic', 'clinic');
+
+
         return fetchWithPagination({
             qb,
             sort: query.sort,
@@ -39,16 +43,19 @@ export class UserRepositoryOrm implements UserRepository {
         });
     }
 
+
     async findByEmail(email: string): Promise<User | null> {
         const user = await this.userRepository.findOne({ where: { email: email }, relations: ['roles', 'roles.permissions', 'permissions', 'clinic'] });
         return user ? UserMapper.toDomain(user) : null;
     }
+
 
     async save(user: User): Promise<User> {
         const userEntity = UserMapper.toOrm(user);
         const savedEntity = await this.userRepository.save(userEntity);
         return UserMapper.toDomain(savedEntity);
     }
+
 
     async update(id: number, user: User): Promise<User> {
         // console.log(user);
@@ -72,12 +79,14 @@ export class UserRepositoryOrm implements UserRepository {
         return user ? UserMapper.toDomain(user) : null;
     }
 
+
     async hardDelete(id: number): Promise<{ message: string }> {
         const user = await this.findOne(id);
         if (!user) throw new NotFoundException('User not found');
         await this.userRepository.delete({ id: id });
         return { message: 'User deleted' };
     }
+
 
     async softDelete(id: number): Promise<{ message: string }> {
         const user = await this.findOne(id);
@@ -86,6 +95,7 @@ export class UserRepositoryOrm implements UserRepository {
         return { message: 'User deleted' };
     }
 
+    
     async restore(id: number): Promise<{ message: string }> {
         const user = await this.userRepository.findOne({ where: { id }, withDeleted: true });
         if (!user) throw new NotFoundException('User not found');

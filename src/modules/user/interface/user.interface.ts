@@ -21,7 +21,7 @@ export interface UserResponse{
     username: string;
     email: string;
     is_verified: boolean;
-    clinic?: Clinic;
+    clinic?: string;
     roles?: Role[];
     permissions?: Permission[];
     createdAt: string;

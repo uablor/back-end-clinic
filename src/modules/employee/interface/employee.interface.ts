@@ -1,4 +1,5 @@
 import { Gender } from "src/infrastructure/typeorm/employee.orm-entity";
+import { Clinic } from '../../clinic/domain/clinic';
 
 
 export interface EmployeeResponse {
@@ -8,6 +9,8 @@ export interface EmployeeResponse {
   email: string;
   birth_date: string | null;
   gender: Gender | null;
+  clinic_id?: number | null;
+  clinic: string | null;
   district_id: number | null;
   district: string | null;
   distinct_en: string | null;

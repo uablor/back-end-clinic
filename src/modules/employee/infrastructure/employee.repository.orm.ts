@@ -68,43 +68,47 @@ export class EmployeeRepositoryOrm implements EmployeeRepository {
     }
   }
   async findOne(id: number): Promise<Employee | null> {
-    const Employee = await this.EmployeeRepository.findOne({
-      where: { id: id },
-      relations: [
-        'user',
-        'district',
-        'district.province',
-        'educations',
-        'educations.employee_id',
-        'educations.employee_id.user',
-      ],
-    });
-    // console.log(Employee);
-    return Employee ? EmployeeMapper.toDomain(Employee) : null;
+    try {
+      const Employee = await this.EmployeeRepository.findOne({
+        where: { id: id },
+        relations: [
+          'user',
+          'district',
+          'clinic',
+          'district.province',
+          'educations',
+          'educations.employee_id',
+          'educations.employee_id.user',
+        ],
+      });
+      return Employee ? EmployeeMapper.toDomain(Employee) : null;
+    } catch (error) {
+      console.error('Error finding employee:', error);
+      throw new NotFoundException('Employee not found');
+    }
   }
+async findAll(query: PaginationDto): Promise<PaginatedResponse<Employee>> {
+  const qb = this.EmployeeRepository.createQueryBuilder('employees');
+  qb.withDeleted()
+    .leftJoinAndSelect('employees.user', 'user')
+    .leftJoinAndSelect('employees.educations', 'educations')
+    .leftJoinAndSelect('employees.clinic', 'clinic')
+    .leftJoinAndSelect('employees.district', 'district')
+    .leftJoinAndSelect('district.province', 'province');
 
-  async findAll(query: PaginationDto): Promise<PaginatedResponse<Employee>> {
-    const qb = this.EmployeeRepository.createQueryBuilder('Employee');
-    qb.withDeleted()
-      .leftJoinAndSelect('Employee.user', 'user')
-      .leftJoinAndSelect('Employee.educations', 'educations')
-      .leftJoinAndSelect('educations.employee_id', 'employee_id')
-      .leftJoinAndSelect('employee_id.user', 'user_id')
-      .leftJoinAndSelect('Employee.district', 'district')
-      .leftJoinAndSelect('district.province', 'province');
-    return fetchWithPagination({
-      qb,
-      sort: query.sort,
-      search: {
-        kw: query.search,
-        field: 'Employee.name',
-      },
-      is_active: query.is_active,
-      page: Number(query.page) || 1,
-      limit: Number(query.limit) || 10,
-      toDomain: EmployeeMapper.toDomain,
-    });
-  }
+  return fetchWithPagination({
+    qb,
+    sort: query.sort,
+    search: {
+      kw: query.search,
+      field: 'employees.name',
+    },
+    is_active: query.is_active,
+    page: Number(query.page) || 1,
+    limit: Number(query.limit) || 10,
+    toDomain: EmployeeMapper.toDomain,
+  });
+}
 
   async update(id: number, Employee: Employee): Promise<Employee> {
     try {

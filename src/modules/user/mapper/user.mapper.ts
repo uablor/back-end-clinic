@@ -61,7 +61,7 @@ export class UserMapper {
             username: domain.username,
             email: domain.email,
             is_verified: domain.is_verified,
-            clinic: domain.clinic ? domain.clinic : domain.clinic,
+            clinic: domain.clinic?.name,
             roles: domain.roles ? domain.roles.map(r => ({
                 id: r.id,
                 name: r.name,

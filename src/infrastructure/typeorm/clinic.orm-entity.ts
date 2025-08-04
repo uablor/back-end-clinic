@@ -24,10 +24,10 @@ export class ClinicEntity extends SharedBaseEntity {
   @Column()
   name: string;
 
-  @Column('double', { precision: 15, scale: 10 })
+  @Column('double precision')
   latitude: number;
 
-  @Column('double', { precision: 15, scale: 10 })
+  @Column('double precision')
   longitude: number;
 
   @Column('double precision')
@@ -51,7 +51,8 @@ export class ClinicEntity extends SharedBaseEntity {
   @OneToMany(() => AttendanceEntity, (attendance) => attendance.clinic)
   attendances: AttendanceEntity[];
 
-  @ManyToOne(() => DistrictEntity, (district) => district.clinic, { nullable: true })
-  district: DistrictEntity
-
+  @ManyToOne(() => DistrictEntity, (district) => district.clinic, {
+    nullable: true,
+  })
+  district: DistrictEntity;
 }

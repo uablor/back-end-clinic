@@ -2,6 +2,7 @@ import { User } from 'src/modules/user/domain/user';
 import { Employee } from 'src/modules/employee/domain/employee';
 import { ClinicProps } from '../interface/clinic.interface';
 import { Attendance } from 'src/modules/attendance/domain/attendance';
+import { District } from 'src/modules/district/domain/district';
 
 export class Clinic {
   public id?: number;
@@ -13,6 +14,7 @@ export class Clinic {
   public end_time_work: string;
   public late_threshold_minutes: number;
 
+  public district?: District | null;
   public users: User[];
   public employees: Employee[];
   public attendances: Attendance[];
@@ -31,6 +33,7 @@ export class Clinic {
     this.end_time_work = props.end_time_work;
     this.late_threshold_minutes = props.late_threshold_minutes;
 
+    this.district = props.district ?? null;
     this.users = props.users ?? [];
     this.employees = props.employees ?? [];
 
@@ -41,29 +44,4 @@ export class Clinic {
     this.deletedAt = props.deletedAt ?? null;
   }
 
-  updateLocation(latitude: number, longitude: number) {
-    this.latitude = latitude;
-    this.longitude = longitude;
-  }
-
-  updateRadius(radius: number) {
-    this.radius = radius;
-  }
-
-  rename(name: string) {
-    this.name = name;
-  }
-
-  addUser(user: User) {
-    this.users.push(user);
-  }
-
-  addEmployee(employee: Employee) {
-    this.employees.push(employee);
-  }
-
-
-  addAttendance(attendance: Attendance) {
-    this.attendances.push(attendance);
-  }
 }

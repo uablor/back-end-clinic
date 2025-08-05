@@ -59,7 +59,7 @@ export async function fetchWithPagination<
 
     const skip = (query.page - 1) * query.limit;
     const [entities, total] = await query.qb.skip(skip).take(query.limit).getManyAndCount();
-    
+
     return {
         data: entities.map(query.toDomain),
         pagination: {

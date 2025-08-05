@@ -1,15 +1,7 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { TRANSACTION_MANAGER_SERVICE } from 'src/shared/constants/inject-key';
-import { TransactionManagerService } from 'src/infrastructure/transaction/transaction.service';
-import { UserEntity } from 'src/infrastructure/typeorm/user.orm-entity';
 import { TransactionModule } from 'src/infrastructure/transaction/transaction.module';
-import { UserModule } from '../user/user.module';
-import { UserRepositoryOrm } from '../user/infrastructure/user.repository.orm';
 import { DistrictModule } from '../district/district.module';
-import { DistrictEntity } from 'src/infrastructure/typeorm/district.orm-entity';
-import { MailModule } from '../mail/mail.module';
-import { AuthModule } from '../auth/auth.module';
 import { ClinicEntity } from 'src/infrastructure/typeorm/clinic.orm-entity';
 import { ClinicController } from './controller/clinic.controller';
 import { ClinicRepositoryOrm } from './infrastructure/clinic.repository.orm';
@@ -25,6 +17,7 @@ import { UpdateClinicUseCase } from './application/use-cases/command/update-clin
   imports: [
     TypeOrmModule.forFeature([ClinicEntity]),
     TransactionModule,
+    DistrictModule,
   ],
   controllers: [ClinicController],
   providers: [

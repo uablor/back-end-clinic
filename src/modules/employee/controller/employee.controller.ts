@@ -30,7 +30,7 @@ export class EmployeeController {
         private readonly hardDeleteEmployeeUseCase: HardDeleteEmployeeUseCase,
         private readonly restoreEmployeeUseCase: RestoreEmployeeUseCase
     ){}
-    @Public()
+    // @Permissions('create_employee')
     @Post()
     async create(@Body() Employee: CreateEmployeeDto){
         return await this.createEmployeeUseCase.execute(Employee);

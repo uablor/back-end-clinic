@@ -9,6 +9,7 @@ import { ProvincesSeeder } from './seeders/seeds/seed-provincs';
 import { DistrictsSeeder } from './seeders/seeds/seed-districts';
 import { PermissionSeeder } from './seeders/seeds/seed-permission';
 import { RolesSeeder } from './seeders/seeds/seed-roles';
+import { ClinicsSeeder } from './seeders/seeds/seed-clinic';
 
 @Module({
     imports: [
@@ -18,7 +19,7 @@ import { RolesSeeder } from './seeders/seeds/seed-roles';
             imports: [ConfigModule],
             inject: [ConfigService],
             useFactory: (configService: ConfigService) => ({
-                type: 'mysql',
+                type: 'postgres',
                 host: configService.getOrThrow('DB_HOST'),
                 port: configService.getOrThrow('DB_PORT'),
                 username: configService.getOrThrow('DB_USERNAME'),
@@ -31,6 +32,6 @@ import { RolesSeeder } from './seeders/seeds/seed-roles';
             }),
         })
     ],
-    providers: [UsersSeeder, SeederService, ProvincesSeeder, DistrictsSeeder, PermissionSeeder, RolesSeeder]
+    providers: [UsersSeeder, SeederService, ProvincesSeeder, DistrictsSeeder, PermissionSeeder, RolesSeeder, ClinicsSeeder]
 })
 export class TypeOrmRepositoryModule { }

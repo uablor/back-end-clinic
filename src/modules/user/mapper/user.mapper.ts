@@ -22,6 +22,7 @@ export class UserMapper {
             is_verified: entity.is_verified,
             roles: entity.roles,
             permissions: entity.permissions,
+            avatar: entity.avatar ,
             clinic: entity.clinic ? ClinicMapper.toDomain(entity.clinic) : undefined,
             createdAt: entity.createdAt,
             updatedAt: entity.updatedAt,
@@ -36,6 +37,7 @@ export class UserMapper {
         entity.email = domain.email;
         entity.password = domain.password;
         entity.is_verified = domain.is_verified;
+        entity.avatar = domain.avatar || '';
 
         if (domain.clinic) entity.clinic = ClinicMapper.toOrm(domain.clinic);
 
@@ -61,7 +63,8 @@ export class UserMapper {
             username: domain.username,
             email: domain.email,
             is_verified: domain.is_verified,
-            clinic: domain.clinic ? domain.clinic : domain.clinic,
+            clinic: domain.clinic?.name,
+            avatar: domain.avatar || '',
             roles: domain.roles ? domain.roles.map(r => ({
                 id: r.id,
                 name: r.name,

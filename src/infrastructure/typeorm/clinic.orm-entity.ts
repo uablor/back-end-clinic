@@ -14,6 +14,7 @@ import { UserEntity } from './user.orm-entity';
 import { EmployeeEntity } from './employee.orm-entity';
 import { AttendanceEntity } from './attendance.orm-entity';
 import { SharedBaseEntity } from 'src/shared/base/baseEntity';
+import { DistrictEntity } from './district.orm-entity';
 
 @Entity('clinics')
 export class ClinicEntity extends SharedBaseEntity {
@@ -23,10 +24,10 @@ export class ClinicEntity extends SharedBaseEntity {
   @Column()
   name: string;
 
-  @Column('double', { precision: 15, scale: 10 })
+  @Column('double precision')
   latitude: number;
 
-  @Column('double', { precision: 15, scale: 10 })
+  @Column('double precision')
   longitude: number;
 
   @Column('double precision')
@@ -36,7 +37,7 @@ export class ClinicEntity extends SharedBaseEntity {
   users: UserEntity[];
 
   @OneToMany(() => EmployeeEntity, (emp) => emp.clinic)
-  Employees: EmployeeEntity[];
+  employees: EmployeeEntity[];
 
   @Column({ type: 'time' })
   start_time_work: string;
@@ -49,4 +50,9 @@ export class ClinicEntity extends SharedBaseEntity {
 
   @OneToMany(() => AttendanceEntity, (attendance) => attendance.clinic)
   attendances: AttendanceEntity[];
+
+  @ManyToOne(() => DistrictEntity, (district) => district.clinic, {
+    nullable: true,
+  })
+  district: DistrictEntity;
 }

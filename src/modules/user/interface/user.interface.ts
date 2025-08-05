@@ -7,6 +7,7 @@ export interface UserProps {
   username: string;
   email: string;
   password: string;
+  avatar?: string;
   is_verified?: boolean;
   clinic?: Clinic;
   roles?: Role[];
@@ -21,7 +22,8 @@ export interface UserResponse{
     username: string;
     email: string;
     is_verified: boolean;
-    clinic?: Clinic;
+    avatar?: string;
+    clinic?: string;
     roles?: Role[];
     permissions?: Permission[];
     createdAt: string;

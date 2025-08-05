@@ -38,16 +38,30 @@ export class ClinicRepositoryOrm implements ClinicRepository {
     }
   }
   async findOne(id: number): Promise<Clinic | null> {
-    const Clinic = await this.ClinicRepository.findOne({
-      where: { id: id },
-    });
-    // console.log(Employee);
+    const Clinic = await this.ClinicRepository
+      .createQueryBuilder('clinics')
+      .leftJoinAndSelect('clinics.users', 'users')
+      .leftJoinAndSelect('clinics.employees', 'employees')
+      .leftJoinAndSelect('clinics.attendances', 'attendances')
+      .leftJoinAndSelect('clinics.district', 'district')
+      .leftJoinAndSelect('district.province', 'province')
+      .where('clinics.id = :id', { id })
+      .getOne();
+
     return Clinic ? ClinicMapper.toDomain(Clinic) : null;
   }
 
   async findAll(query: PaginationDto): Promise<PaginatedResponse<Clinic>> {
-    const qb = this.ClinicRepository.createQueryBuilder('clinics');
-    qb.withDeleted()
+    const qb = this.ClinicRepository.createQueryBuilder('clinics')
+      .withDeleted()
+      .leftJoinAndSelect('clinics.users', 'users')
+      .leftJoinAndSelect('clinics.employees', 'employees')
+      .leftJoinAndSelect('clinics.attendances', 'attendances')
+      .leftJoinAndSelect('clinics.district', 'district')
+      .leftJoinAndSelect('district.province', 'province');
+
+
+
     return fetchWithPagination({
       qb,
       sort: query.sort,

@@ -6,6 +6,7 @@ import { UserMapper } from "src/modules/user/mapper/user.mapper";
 import { DistrictMapper } from "src/modules/district/mapper/district.mapper";
 import { Employee } from "../domain/employee";
 import { Employee_educationMapper } from "src/modules/employee_education/mapper/employee_education.mapper";
+import { ClinicMapper } from "src/modules/clinic/mapper/clinic.mapper";
 
 
 export class EmployeeMapper {
@@ -17,6 +18,7 @@ export class EmployeeMapper {
             surname: entity.surname,
             birth_date: entity.birth_date,
             gender: entity.gender,
+            clinic: entity.clinic ? ClinicMapper.toDomain(entity.clinic) : null,
             user: UserMapper.toDomain(entity.user),
             district: entity.district ? DistrictMapper.toDomain(entity.district) : null,
             educations: entity.educations ? entity.educations.map((education) => Employee_educationMapper.toDomain(education)) : [],
@@ -32,6 +34,7 @@ export class EmployeeMapper {
         entity.name = domain.name;
         entity.surname = domain.surname;
         entity.user = UserMapper.toOrm(domain.user!);
+        if (domain.clinic) entity.clinic = ClinicMapper.toOrm(domain.clinic!);
         if (domain.birth_date) entity.birth_date = domain.birth_date;
         if (domain.gender) entity.gender = domain.gender;
         if (domain.district) entity.district = DistrictMapper.toOrm(domain.district!);
@@ -46,6 +49,8 @@ export class EmployeeMapper {
             email: domain.user!.email,
             birth_date: domain.birth_date ? formatTimeUtil(domain.birth_date) : null,
             gender: domain.gender ? domain.gender : null,
+            clinic_id: domain.clinic ? domain.clinic.id : null,
+            clinic: domain.clinic ? domain.clinic.name : null,
             district_id: domain.district ? domain.district.id : null,
             district: domain.district ? domain.district.name : null,
             distinct_en: domain.district ? domain.district.name_en : null,

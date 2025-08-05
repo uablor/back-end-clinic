@@ -2,9 +2,15 @@ import { ClinicEntity } from 'src/infrastructure/typeorm/clinic.orm-entity';
 import { Clinic } from '../domain/clinic';
 import { formatTimeStamp } from 'src/shared/utils/formatTime.util';
 import { IPagination } from 'src/shared/interface/pagination-interface';
+import e from 'express';
+import { UserMapper } from 'src/modules/user/mapper/user.mapper';
+import { EmployeeMapper } from 'src/modules/employee/mapper/employee.mapper';
+import { AttendanceMapper } from 'src/modules/attendance/mapper/attendance.mapper';
+import { DistrictMapper } from 'src/modules/district/mapper/district.mapper';
 
 export class ClinicMapper {
   static toDomain(entity: ClinicEntity): Clinic {
+
     return new Clinic({
       id: entity.id,
       name: entity.name,
@@ -14,9 +20,13 @@ export class ClinicMapper {
       start_time_work: entity.start_time_work,
       end_time_work: entity.end_time_work,
       late_threshold_minutes: entity.late_threshold_minutes,
+      district: entity.district ? DistrictMapper.toDomain(entity.district) : null,
+      users: entity.users?.map(UserMapper.toDomain) ?? [],
+      employees: entity.employees?.map(EmployeeMapper.toDomain) ?? [],
+      attendances: entity.attendances?.map(AttendanceMapper.toDomain) ?? [],
       createdAt: entity.createdAt,
       updatedAt: entity.updatedAt,
-      deletedAt: entity.deletedAt
+      deletedAt: entity.deletedAt,
     });
   }
 
@@ -30,6 +40,8 @@ export class ClinicMapper {
     entity.start_time_work = domain.start_time_work;
     entity.end_time_work = domain.end_time_work;
     entity.late_threshold_minutes = domain.late_threshold_minutes;
+    if (domain.district) entity.district = DistrictMapper.toOrm(domain.district!);
+
     return entity;
   }
 
@@ -39,30 +51,31 @@ export class ClinicMapper {
       name: domain.name,
       latitude: domain.latitude,
       longitude: domain.longitude,
-      
+
       radius: domain.radius,
       start_time_work: domain.start_time_work,
       end_time_work: domain.end_time_work,
       late_threshold_minutes: domain.late_threshold_minutes,
-      ...formatTimeStamp(domain.createdAt, domain.updatedAt, domain.deletedAt)
+      // employees: domain.employees,
+      // users: domain.users,
+      // attendances: domain.attendances,
+      district_id: domain.district ? domain.district.id : null,
+      district: domain.district ? domain.district.name : null,
+      distinct_en: domain.district ? domain.district.name_en : null,
+      province_id: domain.district ? domain.district.province.id : null,
+      province: domain.district ? domain.district.province.name : null,
+      province_en: domain.district ? domain.district.province.name_en : null,
+      employeeCount: domain.employees.length,
+      userCount: domain.users.length,
+      attendanceCount: domain.attendances.length,
+      ...formatTimeStamp(domain.createdAt, domain.updatedAt, domain.deletedAt),
     };
   }
 
   static toResponseList(clinics: Clinic[], pagination: IPagination) {
     return {
-    data: clinics.map((clinic) => ({
-      ...clinic,
-      users: clinic.users ?? [],
-      employees: clinic.employees ?? [],
-      attendances: clinic.attendances ?? [],
-      addEmployee: clinic.addEmployee,
-      addUser: clinic.addUser,
-      addAttendance: clinic.addAttendance,
-      rename: clinic.rename,
-      updateRadius: clinic.updateRadius,
-      updateLocation: clinic.updateLocation,
-    })),
-      pagination
+      data: clinics.map((clinic) => this.toResponse(clinic)),
+      pagination,
     };
   }
 }

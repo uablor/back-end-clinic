@@ -23,6 +23,7 @@ export interface UserResponse{
     email: string;
     is_verified: boolean;
     avatar?: string;
+    clinic_id?: number;
     clinic?: string;
     roles?: Role[];
     permissions?: Permission[];

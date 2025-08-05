@@ -106,6 +106,7 @@ async findAll(query: PaginationDto): Promise<PaginatedResponse<Employee>> {
     is_active: query.is_active,
     page: Number(query.page) || 1,
     limit: Number(query.limit) || 10,
+    type: query.type,
     toDomain: EmployeeMapper.toDomain,
   });
 }

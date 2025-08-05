@@ -43,6 +43,7 @@ export class AttendanceRepositoryOrm implements AttendanceRepository {
       is_active: query.is_active,
       page: Number(query.page) || 1,
       limit: Number(query.limit) || 10,
+      type: query.type,
       toDomain: AttendanceMapper.toDomain,
     });
   }

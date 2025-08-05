@@ -9,72 +9,6 @@ import { ClinicEntity } from 'src/infrastructure/typeorm/clinic.orm-entity';
 export class UsersSeeder {
   constructor() {}
 
-<<<<<<< HEAD
-    async seed(manager: EntityManager) {
-        const _respository = manager.getRepository(UserEntity);
-        const permission = manager.getRepository(PermissionsEntity);
-        const role = manager.getRepository(RoleEntity);
-        const AllRoles = await role.find({ where: { name: 'super_admin' } });
-        const AllPermissions = await permission.find();
-        const items = [
-            {
-                username: 'super admin',
-                email: 'super_admin@gmail.com',
-                surname: 'super admin',
-                password: await hashPassword('super@1234'),
-                is_verified: true,
-                permissions: AllPermissions,
-                roles: AllRoles
-
-            },
-            {
-                username: 'admin',
-                email: 'admin@gmail.com',
-                surname: 'admin',
-                password: await hashPassword('admin@1234'),
-                is_verified: true,
-                permissions: AllPermissions,
-                roles: AllRoles
-
-            },
-            {
-                username: 'phet',
-                email: 'phetAdmin@gmail.com',
-                surname: 'Phet Admin',
-                password: await hashPassword('12345678phet'),
-                is_verified: true,
-                permissions: AllPermissions,
-                roles: AllRoles
-            },
-            {
-                username: 'pao',
-                email: 'pao@gmail.com',
-                surname: 'pao',
-                password: await hashPassword('12345678pao'),
-                is_verified: true,
-                permissions: AllPermissions,
-                roles: AllRoles
-            },
-            {
-                username: 'oualor',
-                email: 'oualor@gmail.com',
-                surname: 'Oualor',
-                password: await hashPassword('12345678oualor'),
-                is_verified: true,
-                permissions: AllPermissions,
-                roles: AllRoles
-            },
-            {
-                username: 'user',
-                email: 'user@gmail.com',
-                surname: 'user',
-                password: await hashPassword('user@1234'),
-                is_verified: true,
-                permissions: AllPermissions,
-                roles: AllRoles
-            },
-        ];
-=======
   async seed(manager: EntityManager) {
     const _respository = manager.getRepository(UserEntity);
     const permission = manager.getRepository(PermissionsEntity);
@@ -103,7 +37,6 @@ export class UsersSeeder {
         permissions: AllPermissions,
         roles: AllRoles,
         clinic_id: AllClinics[0]?.id,
->>>>>>> master
 
       },
       {

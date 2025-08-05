@@ -23,6 +23,8 @@ export async function fetchWithPagination<
         );
     }
     // query.qb.withDeleted();
+    // console.log(query.type === GetType.ALL)
+    // console.log(query.type)
 
     if (query.is_active === Status.ACTIVE) {
         query.qb.andWhere(`${query.qb.alias}.deletedAt IS NULL`);

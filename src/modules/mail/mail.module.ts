@@ -1,5 +1,5 @@
 import { MailerModule } from "@nestjs-modules/mailer";
-import { Module } from "@nestjs/common";
+import { forwardRef, Module } from "@nestjs/common";
 import { ConfigModule, ConfigService } from "@nestjs/config";
 import { SendMail } from "./application/use-cases/sendMail";
 import { VerifyEmail } from "./application/use-cases/verifyEmail";
@@ -9,8 +9,8 @@ import { MailController } from "./controller/mail.controller";
 
 @Module({
     imports: [
-        AuthModule,
-        UserModule,
+        forwardRef(() =>AuthModule),
+        forwardRef(() =>UserModule ),
         MailerModule.forRootAsync({
             imports: [ConfigModule],
             inject: [ConfigService],

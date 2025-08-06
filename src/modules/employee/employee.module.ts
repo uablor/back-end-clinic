@@ -1,4 +1,4 @@
-import { Module } from '@nestjs/common';
+import { forwardRef, Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { EmployeeEntity } from 'src/infrastructure/typeorm/employee.orm-entity';
 import { EmployeeController } from './controller/employee.controller';
@@ -24,13 +24,14 @@ import { ClinicModule } from '../clinic/clinic.module';
 
 @Module({
   imports: [
-    AuthModule,
-    TypeOrmModule.forFeature([EmployeeEntity, UserEntity, DistrictEntity]),
+
+    TypeOrmModule.forFeature([EmployeeEntity, UserEntity]),
     TransactionModule,
     DistrictModule,
-    UserModule,
-    MailModule,
-    ClinicModule
+    forwardRef(() => UserModule),
+    forwardRef(() => AuthModule),
+    forwardRef(() => MailModule),
+    ClinicModule,
   ],
   controllers: [EmployeeController],
   providers: [

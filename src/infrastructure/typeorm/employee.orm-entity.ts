@@ -27,7 +27,7 @@ export class EmployeeEntity extends SharedBaseEntity {
     @Column({ nullable: true })
     gender: Gender;
 
-    @OneToOne(() => UserEntity, { nullable: false })
+    @OneToOne(() => UserEntity, { nullable: false, onDelete: 'CASCADE', })
     @JoinColumn()
     user: UserEntity;
 

@@ -1,5 +1,5 @@
 // user.entity.ts
-import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn, ManyToOne, OneToMany, ManyToMany, JoinTable, JoinColumn } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn, ManyToOne, OneToMany, ManyToMany, JoinTable, JoinColumn, OneToOne } from 'typeorm';
 import { RoleEntity } from './role.orm-entity';
 import { PermissionsEntity } from './permissions.orm-entity';
 import { ClinicEntity } from './clinic.orm-entity';
@@ -47,6 +47,6 @@ export class UserEntity extends SharedBaseEntity {
   @JoinTable({ name: 'user_permissions' })
   permissions: PermissionsEntity[];
 
-  @OneToMany(() => EmployeeEntity, (Employee) => Employee.user)
-  Employees: EmployeeEntity[]
+  @OneToOne(() => EmployeeEntity, (employee) => employee.user )
+  employee: EmployeeEntity
 }

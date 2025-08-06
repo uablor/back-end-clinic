@@ -43,7 +43,7 @@ export class UserController {
     private readonly udloadAvatarUserUseCase: UploadAvatarUserUseCase,
   ) {}
 
-  @Permissions('get_all_user')
+  // @Permissions('get_all_user')
   @Get()
   async getAllUser(
     @Query() query: PaginationDto,
@@ -62,7 +62,7 @@ export class UserController {
     return await this.udloadAvatarUserUseCase.execute(id, file);
   }
 
-  @Permissions('get_email_user')
+  // @Permissions('get_email_user')
   @Get('email')
   async getByEmail(@Query('email') email: string): Promise<UserResponse> {
     return UserMapper.toResponse(
@@ -70,38 +70,38 @@ export class UserController {
     );
   }
 
-  @Permissions('get_one_user')
+  // @Permissions('get_one_user')
   @Get(':id')
   async getOneUser(@Param('id') id: number): Promise<UserResponse> {
     return UserMapper.toResponse(await this.getOneUserUseCase.execute(id));
   }
 
-  @Permissions('create_user')
+  // @Permissions('create_user')
   @Post()
   async createUser(@Body() dto: CreateUserDto) {
     const user = await this.createUserUseCase.execute(dto);
     return user;
   }
 
-  @Permissions('update_user')
+  // @Permissions('update_user')
   @Patch(':id')
   async updateUser(@Param('id') id: number, @Body() dto: UpdateUserDto) {
     return await this.updateUserUseCase.execute(id, dto);
   }
 
-  @Permissions('hard_delete_user')
+  // @Permissions('hard_delete_user')
   @Delete('hard/:id')
   async hardDeleteUser(@Param('id') id: number): Promise<{ message: string }> {
     return await this.hardDeleteUserUseCase.execute(id);
   }
 
-  @Permissions('soft_delete_user')
+  // @Permissions('soft_delete_user')
   @Delete('soft/:id')
   async softDeleteUser(@Param('id') id: number) {
     return await this.softDeleteUserUseCase.execute(id);
   }
 
-  @Permissions('restore_user')
+  // @Permissions('restore_user')
   @Patch('restore/:id')
   async restoreUser(@Param('id') id: number) {
     return await this.restoreUserUseCase.execute(id);

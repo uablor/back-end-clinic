@@ -93,7 +93,7 @@ export class AutoPermissionsGuard implements CanActivate {
     }
 
     const permissionName = `${action}_${controllerName}`; // เช่น 'get_one_user', 'update_user'
-    console.log(permissionName);
+    // console.log(permissionName);
     return user.permissions.includes(permissionName);
   }
 }

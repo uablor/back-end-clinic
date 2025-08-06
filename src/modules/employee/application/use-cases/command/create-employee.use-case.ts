@@ -41,7 +41,6 @@ export class CreateEmployeeUseCase {
       gender: dto.gender,
       district: districtExists,
       clinic: clinic,
-      
     });
 
     const user = new User({

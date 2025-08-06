@@ -1,4 +1,4 @@
-import { Module } from '@nestjs/common';
+import { forwardRef, Module } from '@nestjs/common';
 import { UserController } from './controller/user.controller';
 import { UserRepositoryOrm } from './infrastructure/user.repository.orm';
 import { CreateUserUseCase } from './application/use-cases/command/create-user.use-case';
@@ -13,10 +13,21 @@ import { RestoreUserUseCase } from './application/use-cases/command/restore-user
 import { UpdateUserUseCase } from './application/use-cases/command/update-user.use-case';
 import { ClinicModule } from '../clinic/clinic.module';
 import { UploadAvatarUserUseCase } from './application/use-cases/command/uploadavatar-use-case';
-
+import { EmployeeModule } from '../employee/employee.module';
+import { TransactionModule } from 'src/infrastructure/transaction/transaction.module';
+import { EmployeeEntity } from 'src/infrastructure/typeorm/employee.orm-entity';
+import { AuthModule } from '../auth/auth.module';
+import { MailModule } from '../mail/mail.module';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([UserEntity]), ClinicModule],
+  imports: [
+    TypeOrmModule.forFeature([UserEntity, EmployeeEntity]),
+    ClinicModule,
+    TransactionModule,
+    // forwardRef(() => EmployeeModule),
+    forwardRef(() => AuthModule),
+    forwardRef(() => MailModule),
+  ].filter(Boolean),
   controllers: [UserController],
   providers: [
     {

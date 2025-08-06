@@ -7,7 +7,7 @@ import { UserModule } from './modules/user/user.module';
 import { ProvinceModule } from './modules/province/province.module';
 import { DistrictModule } from './modules/district/district.module';
 import { AuthModule } from './modules/auth/auth.module';
-import { PermissionsGuard } from './shared/guards/permissions.guard';
+import { AutoPermissionsGuard, PermissionsGuard } from './shared/guards/permissions.guard';
 import { JwtAuthGuard } from './shared/guards/jwt.guard';
 import { MailModule } from './modules/mail/mail.module';
 import { RoleModule } from './modules/role/role.module';
@@ -44,6 +44,10 @@ import { AttendanceModule } from './modules/attendance/attendance.module';
     {
       provide: APP_GUARD,
       useClass: PermissionsGuard,
+    },
+    {
+      provide: APP_GUARD,
+      useClass: AutoPermissionsGuard,
     },
   ],
 })

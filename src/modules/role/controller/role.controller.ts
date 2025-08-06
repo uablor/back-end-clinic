@@ -11,9 +11,10 @@ import { PaginationDto } from "src/shared/dto/paginationDto";
 import { PaginatedResponse } from "src/shared/interface/pagination-response";
 import { RoleMapper } from "../mapper/role.mapper";
 import { ResponceRole } from "../interface/role.interface";
-import { Permissions } from "src/shared/decorators/permissions.decorator";
+import { Permissions, UseAutoPermissions } from "src/shared/decorators/permissions.decorator";
 
 @Controller('role')
+@UseAutoPermissions()
 export class RoleController {
     constructor(
         private readonly createRoleUseCase: CreateRoleUseCase,

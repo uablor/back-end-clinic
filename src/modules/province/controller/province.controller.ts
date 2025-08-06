@@ -1,8 +1,10 @@
 import { Controller, Get, Query } from "@nestjs/common";
 import { GetAllProvinceUseCase } from "../application/query/get-all-province.use-case";
 import { Province } from "../domain/province";
+import { UseAutoPermissions } from "src/shared/decorators/permissions.decorator";
 
 @Controller('province')
+@UseAutoPermissions()
 export class ProvinceController {
     constructor(
         private readonly getAllProvinceUseCase: GetAllProvinceUseCase

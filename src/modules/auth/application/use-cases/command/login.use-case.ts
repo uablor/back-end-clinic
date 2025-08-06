@@ -26,6 +26,7 @@ export class LoginUseCase {
             sub: user.id,
             email: user.email,
             permissions: uniquePermissions,
+            roles: user.roles.map(role => role.name)
         };
 
         const accessToken = this.jwtService.sign(payload);

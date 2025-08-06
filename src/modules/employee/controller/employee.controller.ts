@@ -12,14 +12,15 @@ import { UpdateEmployeeUseCase } from "../application/use-cases/command/update-e
 import { SoftDeleteEmployeeUseCase } from "../application/use-cases/command/soft-delete-employee.use-case";
 import { HardDeleteEmployeeUseCase } from "../application/use-cases/command/hard-delete-employee.use-case";
 import { RestoreEmployeeUseCase } from "../application/use-cases/command/restore-employee.use-case";
-import { Permissions } from "src/shared/decorators/permissions.decorator";
+import { Permissions, UseAutoPermissions } from "src/shared/decorators/permissions.decorator";
 import { Public } from "src/shared/decorators/auth.decorator";
 import { CreateEmployeeDto } from "../application/dto/create-employee.dto";
 import { EmployeeMapper } from "../mapper/employee.mapper";
 import { EmployeeResponse } from "../interface/employee.interface";
 import { UpdateEmployeeDto } from "../application/dto/update-employee.dto";
 
-@Controller('employees')
+@Controller('employee')
+@UseAutoPermissions()
 export class EmployeeController {
     constructor(
         private readonly createEmployeeUseCase: CreateEmployeeUseCase,

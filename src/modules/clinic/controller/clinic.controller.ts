@@ -15,9 +15,11 @@ import { ClinicMapper } from "../mapper/clinic.mapper";
 import { Clinic } from "../domain/clinic";
 import { UpdateClinicDto } from "../application/dto/update-clinic.dto";
 import { ClinicResponse } from "../interface/clinic.interface";
+import { UseAutoPermissions } from "src/shared/decorators/permissions.decorator";
 
 
 @Controller('clinic')
+@UseAutoPermissions()
 export class ClinicController {
     constructor(
         private readonly createCliniceeUseCase: CreateClinicUseCase,

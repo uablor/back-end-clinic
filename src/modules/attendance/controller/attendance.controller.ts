@@ -26,8 +26,10 @@ import { SoftDeleteAttendanceUseCase } from '../application/use-cases/command/so
 import { GetOneAttendanceUseCase } from '../application/use-cases/query/get-one-attendance.use-case';
 import { GetAllAttendanceUseCase } from '../application/use-cases/query/get-all-attendance.use-case';
 import { UpdateAttendanceDto } from '../application/dto/update-attendance.dto';
+import { UseAutoPermissions } from 'src/shared/decorators/permissions.decorator';
 
 @Controller('attendance')
+@UseAutoPermissions()
 export class AttendanceController {
   constructor(
     private readonly createAttendUseCase: CreateAttendanceUseCase,

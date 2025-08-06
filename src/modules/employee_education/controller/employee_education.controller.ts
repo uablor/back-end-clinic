@@ -7,9 +7,10 @@ import { UpdateEducationUseCase } from "../application/use-cases/command/update-
 import { HardDeleteEducationUseCase } from "../application/use-cases/command/hard-delete-employee_education.use-case";
 import { UpdateEducationDto } from "../application/dto/update-employee_education.dto";
 import { Employee_educationMapper } from "../mapper/employee_education.mapper";
-import { Permissions } from "src/shared/decorators/permissions.decorator";
+import { Permissions, UseAutoPermissions } from "src/shared/decorators/permissions.decorator";
 
-@Controller('education')
+@Controller('employee_education')
+@UseAutoPermissions()
 export class EmployeeEducationController {
     constructor(
         private readonly createEducationUseCase: CreateEducationUseCase,

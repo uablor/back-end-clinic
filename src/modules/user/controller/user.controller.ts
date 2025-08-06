@@ -24,11 +24,12 @@ import { SoftDeleteUserUseCase } from '../application/use-cases/command/soft-del
 import { RestoreUserUseCase } from '../application/use-cases/command/restore-user.use-case';
 import { UpdateUserDto } from '../application/dto/update-user.dto';
 import { UpdateUserUseCase } from '../application/use-cases/command/update-user.use-case';
-import { Permissions } from 'src/shared/decorators/permissions.decorator';
+import { Permissions, UseAutoPermissions } from 'src/shared/decorators/permissions.decorator';
 import { UploadAvatarUserUseCase } from '../application/use-cases/command/uploadavatar-use-case';
 import { customUploadInterceptor } from 'src/shared/interceptors/avatarUpload.interceptor';
 
 @Controller('user')
+@UseAutoPermissions()
 export class UserController {
   constructor(
     private readonly createUserUseCase: CreateUserUseCase,

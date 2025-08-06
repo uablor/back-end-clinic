@@ -1,10 +1,8 @@
-import { Role } from "src/modules/role/domain/role";
+import { Role } from 'src/modules/role/domain/role';
 import { Permission } from 'src/modules/permission/domain/permission';
-import { UserProps } from "../interface/user.interface";
-import { hashPassword } from "src/shared/utils/bcrypt.util";
-import { Clinic } from "src/modules/clinic/domain/clinic";
-
-
+import { UserProps } from '../interface/user.interface';
+import { hashPassword } from 'src/shared/utils/bcrypt.util';
+import { Clinic } from 'src/modules/clinic/domain/clinic';
 
 export class User implements UserProps {
   public id?: number;
@@ -13,7 +11,7 @@ export class User implements UserProps {
   public password: string;
   public is_verified: boolean;
   public avatar?: string;
-  public clinic?: Clinic;
+  public clinic?: Clinic | null;
   public roles: Role[];
   public permissions: Permission[];
   public createdAt?: Date;

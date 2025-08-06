@@ -1,5 +1,7 @@
 import { UserEntity } from "src/infrastructure/typeorm/user.orm-entity";
 import { User } from "../domain/user";
+import { Role } from "src/modules/role/domain/role";
+import { Permission } from "src/modules/permission/domain/permission";
 import { RoleEntity } from "src/infrastructure/typeorm/role.orm-entity";
 import { PermissionsEntity } from "src/infrastructure/typeorm/permissions.orm-entity";
 import { formatTimeStamp } from "src/shared/utils/formatTime.util";

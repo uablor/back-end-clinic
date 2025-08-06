@@ -54,7 +54,7 @@ export class EmployeeRepositoryOrm implements EmployeeRepository {
             .save(employeeEntity);
           const savedEntity = await savedEmployee;
           await this.sendMail.execute(
-            user.email,
+            savedUser.email,
             'Bienvenido a la plataforma',
             'Bienvenido a la plataforma',
             `http://localhost:3000/verify/${token}`,

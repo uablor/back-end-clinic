@@ -6,7 +6,7 @@ export interface EmployeeResponse {
   id: number;
   name: string;
   surname: string;
-  email: string;
+  email?: string;
   birth_date: string | null;
   gender: Gender | null;
   user_id?: number | null;

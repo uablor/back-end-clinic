@@ -18,10 +18,12 @@ import { TransactionModule } from 'src/infrastructure/transaction/transaction.mo
 import { EmployeeEntity } from 'src/infrastructure/typeorm/employee.orm-entity';
 import { AuthModule } from '../auth/auth.module';
 import { MailModule } from '../mail/mail.module';
+import { RoleEntity } from 'src/infrastructure/typeorm/role.orm-entity';
+import { PermissionsEntity } from 'src/infrastructure/typeorm/permissions.orm-entity';
 
 @Module({
   imports: [
-    TypeOrmModule.forFeature([UserEntity, EmployeeEntity]),
+    TypeOrmModule.forFeature([UserEntity, EmployeeEntity, RoleEntity, PermissionsEntity]),
     ClinicModule,
     TransactionModule,
     // forwardRef(() => EmployeeModule),

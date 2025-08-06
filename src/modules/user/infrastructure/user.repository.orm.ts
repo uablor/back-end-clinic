@@ -69,16 +69,14 @@ export class UserRepositoryOrm implements UserRepository {
     });
     const savedEntity = await this.userRepository.save(userEntity);
     await this.sendMail.execute(
-      user.email,
+      userEntity.email,
       'Bienvenido a la plataforma',
       'Bienvenido a la plataforma',
       `http://localhost:3000/verify/${token}`,
     );
     return UserMapper.toDomain(savedEntity);
   }
-
   async update(id: number, user: User): Promise<User> {
-    // console.log(user);
     const userEntity = await this.userRepository.findOne({
       where: { id },
       relations: ['roles', 'permissions'],
@@ -97,7 +95,6 @@ export class UserRepositoryOrm implements UserRepository {
     const user = await this.userRepository.findOne({
       where: { id: id },
       relations: ['roles', 'roles.permissions', 'permissions', 'clinic'],
-      withDeleted: true,
     });
     return user ? UserMapper.toDomain(user) : null;
   }

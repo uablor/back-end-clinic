@@ -5,11 +5,11 @@ import { Role } from "src/modules/role/domain/role";
 export interface UserProps {
   id?: number;
   username: string;
-  email: string;
+  email: string ;
   password: string;
   avatar?: string;
   is_verified?: boolean;
-  clinic?: Clinic;
+  clinic?: Clinic | null;
   roles?: Role[];
   permissions?: Permission[];
   createdAt?: Date;

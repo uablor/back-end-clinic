@@ -12,7 +12,7 @@ export interface EmployeeProps {
   birth_date?: Date;
   gender?: Gender;
   clinic?: Clinic | null;
-  user?: User;
+  user?: User | null;
   district?: District | null;
   createdAt?: Date;
   updatedAt?: Date;
@@ -27,7 +27,7 @@ export class Employee {
   public birth_date?: Date;
   public gender?: Gender;
   public clinic?: Clinic | null;
-  public user?: User;
+  public user?: User | null;
   public district?: District | null;
   public educations?: Employee_education[];
   public createdAt?: Date;

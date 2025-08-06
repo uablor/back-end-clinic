@@ -13,9 +13,9 @@ export interface ClinicProps {
   end_time_work: string;
   late_threshold_minutes: number;
   district?: District | null;
-  users?: User[];
-  employees?: Employee[];
-  attendances?: Attendance[];
+  users?: User[] | null;
+  employees?: Employee[] | null;
+  attendances?: Attendance[] | null;
   createdAt?: Date;
   updatedAt?: Date;
   deletedAt?: Date | null;

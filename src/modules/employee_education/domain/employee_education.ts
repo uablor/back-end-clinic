@@ -12,7 +12,7 @@ export class Employee_education {
     public createdAt?: Date
     public updatedAt?: Date
     public deletedAt?: Date | null
-    public employee_id: Employee
+    public employee_id: Employee | null
     constructor(
         props: Employee_educationProps
     ) {

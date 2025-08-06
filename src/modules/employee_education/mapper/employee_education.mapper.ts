@@ -14,7 +14,10 @@ export class Employee_educationMapper {
             current_occupation: entity.current_occupation,
             work_experience: entity.work_experience,
             status: entity.status,
-            employee_id: EmployeeMapper.toDomain(entity.employee_id)
+            employee_id: entity.employee_id ? EmployeeMapper.toDomain(entity.employee_id) : null,
+            createdAt: entity.createdAt,
+            updatedAt: entity.updatedAt,
+            deletedAt: entity.deletedAt
         })
     }
     static toOrm(domain: Employee_education): EmployeeEducationsEntity {
@@ -25,7 +28,7 @@ export class Employee_educationMapper {
         entity.current_occupation = domain.current_occupation
         entity.work_experience = domain.work_experience
         entity.status = domain.status
-        entity.employee_id = EmployeeMapper.toOrm(domain.employee_id)
+        if (domain.employee_id) entity.employee_id = EmployeeMapper.toOrm(domain.employee_id)
         return entity
     }
 

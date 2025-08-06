@@ -7,10 +7,12 @@ import { UserMapper } from 'src/modules/user/mapper/user.mapper';
 import { EmployeeMapper } from 'src/modules/employee/mapper/employee.mapper';
 import { AttendanceMapper } from 'src/modules/attendance/mapper/attendance.mapper';
 import { DistrictMapper } from 'src/modules/district/mapper/district.mapper';
+import { Employee } from 'src/modules/employee/domain/employee';
+import { User } from 'src/modules/user/domain/user';
+import { Attendance } from 'src/modules/attendance/domain/attendance';
 
 export class ClinicMapper {
   static toDomain(entity: ClinicEntity): Clinic {
-
     return new Clinic({
       id: entity.id,
       name: entity.name,
@@ -20,10 +22,13 @@ export class ClinicMapper {
       start_time_work: entity.start_time_work,
       end_time_work: entity.end_time_work,
       late_threshold_minutes: entity.late_threshold_minutes,
-      district: entity.district ? DistrictMapper.toDomain(entity.district) : null,
-      users: entity.users?.map(UserMapper.toDomain) ?? [],
-      employees: entity.employees?.map(EmployeeMapper.toDomain) ?? [],
-      attendances: entity.attendances?.map(AttendanceMapper.toDomain) ?? [],
+      district: entity.district
+        ? DistrictMapper.toDomain(entity.district)
+        : null,
+      users: entity.users?.filter(user => user && user.id).map(user => UserMapper.toDomain(user)) ??  entity.users?.filter(user => user && user.id).map(user => UserMapper.toDomain(user)) ?? [],
+      employees: entity.employees?.filter(employee => employee && employee.id).map(employee => EmployeeMapper.toDomain(employee)) ?? [],
+      attendances: entity.attendances?.filter(attendance => attendance && attendance.id).map(attendance => AttendanceMapper.toDomain(attendance)) ?? [],
+      
       createdAt: entity.createdAt,
       updatedAt: entity.updatedAt,
       deletedAt: entity.deletedAt,
@@ -40,7 +45,8 @@ export class ClinicMapper {
     entity.start_time_work = domain.start_time_work;
     entity.end_time_work = domain.end_time_work;
     entity.late_threshold_minutes = domain.late_threshold_minutes;
-    if (domain.district) entity.district = DistrictMapper.toOrm(domain.district!);
+    if (domain.district)
+      entity.district = DistrictMapper.toOrm(domain.district!);
 
     return entity;
   }

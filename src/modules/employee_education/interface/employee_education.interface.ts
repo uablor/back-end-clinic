@@ -8,5 +8,9 @@ export interface Employee_educationProps {
     current_occupation: string
     work_experience: number
     status: EducationStatus
-    employee_id : Employee
+    employee_id : Employee | null
+    createdAt?: Date
+    updatedAt?: Date
+    deletedAt?: Date | null
+
 }

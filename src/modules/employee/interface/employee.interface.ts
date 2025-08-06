@@ -9,6 +9,7 @@ export interface EmployeeResponse {
   email: string;
   birth_date: string | null;
   gender: Gender | null;
+  user_id?: number | null;
   clinic_id?: number | null;
   clinic: string | null;
   district_id: number | null;

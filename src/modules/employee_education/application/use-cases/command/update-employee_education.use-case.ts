@@ -11,6 +11,7 @@ export class UpdateEducationUseCase {
     async execute(id: number, dto: UpdateEducationDto) {
         const educationExists = await this.educationRepository.findOne(id);
         if (!educationExists) throw new NotFoundException("Education not found")
+        if (!educationExists.employee_id) throw new NotFoundException('employee not found');
         const education = new EmployeeEducationsEntity();
         education.level = dto.level || educationExists.level;
         education.field_of_study = dto.field_of_study || educationExists.field_of_study;

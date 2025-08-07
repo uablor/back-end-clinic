@@ -3,7 +3,7 @@ import { PermissionRepositoryOrm } from "./infrastructure/permission.repository.
 import { TypeOrmModule } from "@nestjs/typeorm";
 import { PermissionsEntity } from "src/infrastructure/typeorm/permissions.orm-entity";
 import { PermissionController } from "./controller/permission.controller";
-import { GetAllPermssionUseCase } from "./application/use-cases/query/get-all-permssion.use-case";
+import { GetAllPermssionUseCase } from "./application/use-cases/query/get-all-permission.use-case";
 
 @Module({
     imports: [TypeOrmModule.forFeature([PermissionsEntity])],

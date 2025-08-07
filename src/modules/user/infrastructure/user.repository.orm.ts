@@ -16,6 +16,7 @@ import { ITransactionManager } from 'src/infrastructure/transaction/transaction.
 import { EmployeeEntity } from 'src/infrastructure/typeorm/employee.orm-entity';
 import { SendMail } from 'src/modules/mail/application/use-cases/sendMail';
 import e from 'express';
+import { EmployeeEducationsEntity } from 'src/infrastructure/typeorm/employee_educations.orm-entity';
 
 @Injectable()
 export class UserRepositoryOrm implements UserRepository {
@@ -106,7 +107,7 @@ export class UserRepositoryOrm implements UserRepository {
         async (manager) => {
           const is_user = await manager.getRepository(UserEntity).findOne({
             where: { id: id },
-            relations: ['employee'],
+            relations: ['employee', 'employee.educations'],
             withDeleted: true,
           });
           if (!is_user) throw new NotFoundException('user not found');
@@ -118,6 +119,20 @@ export class UserRepositoryOrm implements UserRepository {
                 withDeleted: true,
               });
             if (is_employee) {
+              const employeeEducations = await manager
+                .getRepository(EmployeeEducationsEntity)
+                .find({
+                  where: { employee_id: { id: is_employee.id } },
+                  withDeleted: true,
+                });
+
+              if (employeeEducations.length > 0) {
+                for (const education of employeeEducations) {
+                  await manager
+                    .getRepository(EmployeeEducationsEntity)
+                    .delete({ id: education.id });
+                }
+              }
               await manager
                 .getRepository(EmployeeEntity)
                 .delete({ id: is_employee.id });
@@ -141,7 +156,10 @@ export class UserRepositoryOrm implements UserRepository {
         async (manager) => {
           const is_user = await manager
             .getRepository(UserEntity)
-            .findOne({ where: { id: id }, relations: ['employee'] });
+            .findOne({
+              where: { id: id },
+              relations: ['employee', 'employee.educations'],
+            });
           if (!is_user) throw new NotFoundException('user not found');
           await manager.getRepository(UserEntity).softDelete({ id: id });
           if (is_user.employee) {
@@ -152,9 +170,23 @@ export class UserRepositoryOrm implements UserRepository {
                 withDeleted: true,
               });
             if (is_employee) {
-              await manager.getRepository(EmployeeEntity).softDelete({
-                id: is_user.employee.id,
-              });
+              const employeeEducations = await manager
+                .getRepository(EmployeeEducationsEntity)
+                .find({
+                  where: { employee_id: { id: is_employee.id } },
+                  withDeleted: true,
+                });
+
+              if (employeeEducations.length > 0) {
+                for (const education of employeeEducations) {
+                  await manager
+                    .getRepository(EmployeeEducationsEntity)
+                    .softDelete({ id: education.id });
+                }
+              }
+              await manager
+                .getRepository(EmployeeEntity)
+                .softDelete({ id: is_employee.id });
             }
           }
           return { message: 'User deleted' };
@@ -174,12 +206,29 @@ export class UserRepositoryOrm implements UserRepository {
           const is_user = await manager.getRepository(UserEntity).findOne({
             where: { id: id },
             withDeleted: true,
-            relations: ['employee'],
+            relations: ['employee', 'employee.educations'],
           });
           if (!is_user) throw new NotFoundException('user not found');
-          await manager
-            .getRepository(EmployeeEntity)
-            .restore({ id: is_user.employee.id });
+          if (is_user) {
+            const employeeEducations = await manager
+              .getRepository(EmployeeEducationsEntity)
+              .find({
+                where: { employee_id: { id: is_user.employee.id } },
+                withDeleted: true,
+              });
+
+            if (employeeEducations.length > 0) {
+              for (const education of employeeEducations) {
+                await manager
+                  .getRepository(EmployeeEducationsEntity)
+                  .restore({ id: education.id });
+              }
+            }
+            await manager
+              .getRepository(EmployeeEntity)
+              .restore({ id: is_user.employee.id });
+          }
+
           await manager.getRepository(UserEntity).restore({ id: id });
           return { message: 'User restored' };
         },

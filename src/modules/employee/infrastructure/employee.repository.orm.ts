@@ -16,6 +16,7 @@ import { JwtService } from '@nestjs/jwt';
 import { Employee } from '../domain/employee';
 import { EmployeeRepository } from '../domain/employee.repository';
 import { RoleEntity } from 'src/infrastructure/typeorm/role.orm-entity';
+import { EmployeeEducationsEntity } from 'src/infrastructure/typeorm/employee_educations.orm-entity';
 
 @Injectable()
 export class EmployeeRepositoryOrm implements EmployeeRepository {
@@ -87,29 +88,29 @@ export class EmployeeRepositoryOrm implements EmployeeRepository {
       throw new NotFoundException('Employee not found');
     }
   }
-async findAll(query: PaginationDto): Promise<PaginatedResponse<Employee>> {
-  const qb = this.EmployeeRepository.createQueryBuilder('employees');
-  qb.withDeleted()
-    .leftJoinAndSelect('employees.user', 'user')
-    .leftJoinAndSelect('employees.educations', 'educations')
-    .leftJoinAndSelect('employees.clinic', 'clinic')
-    .leftJoinAndSelect('employees.district', 'district')
-    .leftJoinAndSelect('district.province', 'province');
+  async findAll(query: PaginationDto): Promise<PaginatedResponse<Employee>> {
+    const qb = this.EmployeeRepository.createQueryBuilder('employees');
+    qb.withDeleted()
+      .leftJoinAndSelect('employees.user', 'user')
+      .leftJoinAndSelect('employees.educations', 'educations')
+      .leftJoinAndSelect('employees.clinic', 'clinic')
+      .leftJoinAndSelect('employees.district', 'district')
+      .leftJoinAndSelect('district.province', 'province');
 
-  return fetchWithPagination({
-    qb,
-    sort: query.sort,
-    search: {
-      kw: query.search,
-      field: 'employees.name',
-    },
-    is_active: query.is_active,
-    page: Number(query.page) || 1,
-    limit: Number(query.limit) || 10,
-    type: query.type,
-    toDomain: EmployeeMapper.toDomain,
-  });
-}
+    return fetchWithPagination({
+      qb,
+      sort: query.sort,
+      search: {
+        kw: query.search,
+        field: 'employees.name',
+      },
+      is_active: query.is_active,
+      page: Number(query.page) || 1,
+      limit: Number(query.limit) || 10,
+      type: query.type,
+      toDomain: EmployeeMapper.toDomain,
+    });
+  }
 
   async update(id: number, Employee: Employee): Promise<Employee> {
     try {
@@ -157,11 +158,25 @@ async findAll(query: PaginationDto): Promise<PaginatedResponse<Employee>> {
             .getRepository(EmployeeEntity)
             .findOne({
               where: { id: id },
-              relations: ['user'],
+              relations: ['user', 'educations'],
               withDeleted: true,
             });
           if (!isEmployeeExists)
             throw new NotFoundException('Employee not found');
+          const employeeEducations = await manager
+            .getRepository(EmployeeEducationsEntity)
+            .find({
+              where: { employee_id: { id: isEmployeeExists.id } },
+              withDeleted: true,
+            });
+
+          if (employeeEducations.length > 0) {
+            for (const education of employeeEducations) {
+              await manager
+                .getRepository(EmployeeEducationsEntity)
+                .delete({ id: education.id });
+            }
+          }
           await manager.getRepository(EmployeeEntity).delete({ id: id });
           await manager
             .getRepository(UserEntity)
@@ -182,9 +197,25 @@ async findAll(query: PaginationDto): Promise<PaginatedResponse<Employee>> {
         async (manager) => {
           const isEmployeeExists = await manager
             .getRepository(EmployeeEntity)
-            .findOne({ where: { id: id }, relations: ['user'] });
+            .findOne({ where: { id: id }, relations: ['user', 'educations'] });
+
           if (!isEmployeeExists)
             throw new NotFoundException('Employee not found');
+
+          const employeeEducations = await manager
+            .getRepository(EmployeeEducationsEntity)
+            .find({
+              where: { employee_id: { id: isEmployeeExists.id } },
+            });
+
+          if (employeeEducations.length > 0) {
+            for (const education of employeeEducations) {
+              await manager
+                .getRepository(EmployeeEducationsEntity)
+                .softDelete({ id: education.id });
+            }
+          }
+
           await manager.getRepository(EmployeeEntity).softDelete({ id: id });
           await manager
             .getRepository(UserEntity)
@@ -208,10 +239,25 @@ async findAll(query: PaginationDto): Promise<PaginatedResponse<Employee>> {
             .findOne({
               where: { id: id },
               withDeleted: true,
-              relations: ['user'],
+              relations: ['user', 'educations'],
             });
           if (!isEmployeeExists)
             throw new NotFoundException('Employee not found');
+
+          const employeeEducations = await manager
+            .getRepository(EmployeeEducationsEntity)
+            .find({
+              where: { employee_id: { id: isEmployeeExists.id } },
+              withDeleted: true,
+            });
+
+          if (employeeEducations.length > 0) {
+            for (const education of employeeEducations) {
+              await manager
+                .getRepository(EmployeeEducationsEntity)
+                .restore({ id: education.id });
+            }
+          }
           await manager.getRepository(EmployeeEntity).restore({ id: id });
           await manager
             .getRepository(UserEntity)

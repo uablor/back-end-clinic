@@ -27,7 +27,7 @@ export class PermissionsGuard implements CanActivate {
     const user = request.user as any;
     if (!user || !user.permissions) {
       throw new ForbiddenException('No permissions found.');
-    }   
+    }
 
     const userPermissions = user.permissions;
 
@@ -42,7 +42,6 @@ export class PermissionsGuard implements CanActivate {
     return true;
   }
 }
-
 
 @Injectable()
 export class AutoPermissionsGuard implements CanActivate {
@@ -62,7 +61,11 @@ export class AutoPermissionsGuard implements CanActivate {
     if (user.isSuperAdmin) return true;
 
     // ชื่อ controller → 'UserController' → 'user'
-    const controllerName = context.getClass().name.replace('Controller', '').toLowerCase(); // ex. 'user'
+    const controllerPath = this.reflector.get<string>(
+      'path',
+      context.getClass(),
+    );
+    const controllerName = controllerPath.toLowerCase();
     const handlerName = context.getHandler().name; // เช่น 'getOne', 'create', 'update'
 
     // Map HTTP Method → action prefix
@@ -93,8 +96,7 @@ export class AutoPermissionsGuard implements CanActivate {
     }
 
     const permissionName = `${action}_${controllerName}`; // เช่น 'get_one_user', 'update_user'
-    // console.log(permissionName);
+    console.log(permissionName);
     return user.permissions.includes(permissionName);
   }
 }
-

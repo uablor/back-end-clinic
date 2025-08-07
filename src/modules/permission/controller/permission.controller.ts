@@ -1,5 +1,5 @@
 import { Controller, Get } from "@nestjs/common";
-import { GetAllPermssionUseCase } from "../application/use-cases/query/get-all-permssion.use-case";
+import { GetAllPermssionUseCase } from "../application/use-cases/query/get-all-permission.use-case";
 import { Permissions, UseAutoPermissions } from "src/shared/decorators/permissions.decorator";
 
 @Controller('permission')

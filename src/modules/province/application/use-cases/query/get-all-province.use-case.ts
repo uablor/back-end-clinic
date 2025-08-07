@@ -1,6 +1,6 @@
 import { Inject, Injectable } from "@nestjs/common";
-import { ProvinceRepository } from "../../domain/province.repository";
-import { Province } from "../../domain/province";
+import { Province } from "src/modules/province/domain/province";
+import { ProvinceRepository } from "src/modules/province/domain/province.repository";
 
 @Injectable()
 export class GetAllProvinceUseCase {

@@ -1,6 +1,6 @@
 import { Inject, Injectable } from "@nestjs/common";
-import { DistrictRepository } from "../../domain/district.repository";
-import { District } from "../../domain/district";
+import { DistrictRepository } from "../../../domain/district.repository";
+import { District } from "../../../domain/district";
 
 
 @Injectable()

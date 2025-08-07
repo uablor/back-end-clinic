@@ -1,9 +1,9 @@
 import { Module } from "@nestjs/common";
 import { ProvinceController } from "./controller/province.controller";
-import { GetAllProvinceUseCase } from "./application/query/get-all-province.use-case";
 import { ProvinceRepositoryOrm } from "./infrastructure/province.repository.orm";
 import { TypeOrmModule } from "@nestjs/typeorm";
 import { ProvinceEntity } from "src/infrastructure/typeorm/province.orm-entity";
+import { GetAllProvinceUseCase } from "./application/use-cases/query/get-all-province.use-case";
 
 @Module({
     imports: [TypeOrmModule.forFeature([ProvinceEntity])],

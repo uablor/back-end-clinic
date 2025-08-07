@@ -3,7 +3,7 @@ import { TypeOrmModule } from "@nestjs/typeorm";
 import { DistrictEntity } from "src/infrastructure/typeorm/district.orm-entity";
 import { DistrictController } from "./controller/district.controller";
 import { DistrictRepositoryOrm } from "./infrastructure/district.repository.orm";
-import { GetAllDistrictUseCase } from "./application/query/get-all-district.use-case";
+import { GetAllDistrictUseCase } from "./application/use-cases/query/get-all-district.use-case";
 
 
 @Module({

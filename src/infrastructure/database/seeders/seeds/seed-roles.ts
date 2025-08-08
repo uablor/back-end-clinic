@@ -12,6 +12,7 @@ export class RolesSeeder {
         const AllPermissions = await permission.find();
         const items = [
             { id: 1, name: 'super_admin', display_name: 'Super Admin', permissions: AllPermissions },
+            { id: 2, name: 'employee', display_name: 'employee', permissions: AllPermissions },
             // {
             //     id: 2,
             //     name: 'Employee',

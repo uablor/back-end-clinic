@@ -50,17 +50,20 @@ export class EmployeeRepositoryOrm implements EmployeeRepository {
           const token = await this.jwtService.signAsync({
             email: user.email,
           });
-          const savedEmployee = manager
+          const savedEmployee = await manager
             .getRepository(EmployeeEntity)
             .save(employeeEntity);
-          const savedEntity = await savedEmployee;
+          // const savedEntity = await savedEmployee;
           await this.sendMail.execute(
             savedUser.email,
             'Bienvenido a la plataforma',
-            'Bienvenido a la plataforma',
-            `http://localhost:3000/verify/${token}`,
+            'welcome',
+            {
+              name: savedUser.username,
+              url: `http://localhost:3000/mail/verify?token=${token}`,
+            },
           );
-          return EmployeeMapper.toDomain(savedEntity);
+          return EmployeeMapper.toDomain(savedEmployee);
         },
       );
       return result;

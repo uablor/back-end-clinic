@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ຢືນຢັນອີເມວຂອງທ່ານ</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .email-container {
+            max-width: 600px;
+            margin: 0 auto;
+            background: #ffffff;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%);
+            padding: 40px 30px;
+            text-align: center;
+            position: relative;
+        }
+        
+        .header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.05'%3E%3Ccircle cx='30' cy='30' r='4'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E") repeat;
+        }
+        
+        .logo {
+            width: 80px;
+            height: 80px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            backdrop-filter: blur(10px);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+        }
+        
+        .logo svg {
+            width: 40px;
+            height: 40px;
+            fill: white;
+        }
+        
+        .header h1 {
+            color: white;
+            font-size: 28px;
+            font-weight: 600;
+            margin-bottom: 10px;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .header p {
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 16px;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .content {
+            padding: 50px 30px;
+            text-align: center;
+        }
+        
+        .welcome-text {
+            font-size: 24px;
+            font-weight: 600;
+            color: #1f2937;
+            margin-bottom: 15px;
+        }
+        
+        .description {
+            font-size: 16px;
+            color: #6b7280;
+            margin-bottom: 40px;
+            line-height: 1.7;
+        }
+        
+        .verify-btn {
+            display: inline-block;
+            padding: 16px 40px;
+            background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%);
+            color: white;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 16px;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 30px rgba(79, 70, 229, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .verify-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.5s;
+        }
+        
+        .verify-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 15px 40px rgba(79, 70, 229, 0.4);
+        }
+        
+        .verify-btn:hover::before {
+            left: 100%;
+        }
+        
+        .security-note {
+            margin-top: 40px;
+            padding: 20px;
+            background: #f8fafc;
+            border-radius: 12px;
+            border-left: 4px solid #4f46e5;
+        }
+        
+        .security-note h3 {
+            color: #1f2937;
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+        
+        .security-note p {
+            color: #6b7280;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+        
+        .footer {
+            background: #f9fafb;
+            padding: 30px;
+            text-align: center;
+            border-top: 1px solid #e5e7eb;
+        }
+        
+        .footer p {
+            color: #9ca3af;
+            font-size: 14px;
+            margin-bottom: 10px;
+        }
+        
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .social-link {
+            width: 40px;
+            height: 40px;
+            background: #e5e7eb;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+        
+        .social-link:hover {
+            background: #4f46e5;
+            transform: translateY(-2px);
+        }
+        
+        .social-link svg {
+            width: 18px;
+            height: 18px;
+            fill: #6b7280;
+        }
+        
+        .social-link:hover svg {
+            fill: white;
+        }
+        
+        @media (max-width: 600px) {
+            .email-container {
+                margin: 10px;
+                border-radius: 15px;
+            }
+            
+            .header {
+                padding: 30px 20px;
+            }
+            
+            .header h1 {
+                font-size: 24px;
+            }
+            
+            .content {
+                padding: 40px 20px;
+            }
+            
+            .welcome-text {
+                font-size: 22px;
+            }
+            
+            .verify-btn {
+                padding: 14px 30px;
+                font-size: 15px;
+            }
+            
+            .footer {
+                padding: 25px 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="email-container">
+        <div class="header">
+            <div class="logo">
+                <svg viewBox="0 0 24 24">
+                    <path d="M12 2L2 7V10C2 16.11 6.07 21.74 12 23C17.93 21.74 22 16.11 22 10V7L12 2M12 7C10.89 7 10 7.89 10 9V11C10 12.11 10.89 13 12 13S14 12.11 14 11V9C14 7.89 13.11 7 12 7M18 10C18 15.24 15.39 19.39 12 20.5C8.61 19.39 6 15.24 6 10V8.5L12 5.5L18 8.5V10Z"/>
+                </svg>
+            </div>
+            <h1>ຢືນຢັນບັນຊີຂອງທ່ານ</h1>
+            <p>ເພື່ອຄວາມປອດໄພ ແລະ ການນໍາໃຊ້ງານທີ່ສົມບູນ</p>
+        </div>
+        
+        <div class="content">
+            <div class="welcome-text">ສະບາຍດີ {{name}} 👋</div>
+            <p class="description">
+                ຂອບໃຈທີ່ເຂົ້າຮ່ວມກັບພວກເຮົາ! ເພື່ອເລີ່ມຕົ້ນໃຊ້ງານແພລດຟອມຂອງເຮົາຢ່າງເຕັມທີ່ 
+                ກະລຸນາກົດປຸ່ມຂ້າງລຸ່ມນີ້ເພື່ອຢືນຢັນທີ່ຢູ່ອີເມວຂອງທ່ານ
+            </p>
+            
+            <a href="{{url}}" class="verify-btn">
+                ✉ ຢືນຢັນອີເມວຂອງທ່ານ
+            </a>
+            
+            <div class="security-note">
+                <h3>🔒 ຫມາຍເຫດດ້ານຄວາມປອດໄພ</h3>
+                <p>
+                    ລິ້ງການຢືນຢັນນີ້ຈະໝົດອາຍຸໃນ 24 ຊົ່ວໂມງ ຫາກທ່ານບໍ່ໄດ້ສະໝັກບັນຊີນີ້ 
+                    ກະລຸນາບໍ່ໃສ່ໃຈອີເມວນີ້ ຫຼື ຕິດຕໍ່ທີມສະໜັບສະໜູນຂອງເຮົາ
+                </p>
+            </div>
+        </div>
+        
+        <div class="footer">
+            <p>ອີເມວນີ້ສົ່ງໂດຍອັດຕະໂນມັດ ກະລຸນາຢ່າຕອບກັບ</p>
+            <p>ຫາກທ່ານມີຄໍາຖາມ ຕິດຕໍ່ເຮົາໄດ້ທີ່ support@example.com</p>
+            
+            <div class="social-links">
+                <a href="#" class="social-link" title="Facebook">
+                    <svg viewBox="0 0 24 24">
+                        <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+                    </svg>
+                </a>
+                <a href="#" class="social-link" title="Twitter">
+                    <svg viewBox="0 0 24 24">
+                        <path d="M23.953 4.57a10 10 0 01-2.825.775 4.958 4.958 0 002.163-2.723c-.951.555-2.005.959-3.127 1.184a4.92 4.92 0 00-8.384 4.482C7.69 8.095 4.067 6.13 1.64 3.162a4.822 4.822 0 00-.666 2.475c0 1.71.87 3.213 2.188 4.096a4.904 4.904 0 01-2.228-.616v.06a4.923 4.923 0 003.946 4.827 4.996 4.996 0 01-2.212.085 4.936 4.936 0 004.604 3.417 9.867 9.867 0 01-6.102 2.105c-.39 0-.779-.023-1.17-.067a13.995 13.995 0 007.557 2.209c9.053 0 13.998-7.496 13.998-13.985 0-.21 0-.42-.015-.63A9.935 9.935 0 0024 4.59z"/>
+                    </svg>
+                </a>
+                <a href="#" class="social-link" title="Instagram">
+                    <svg viewBox="0 0 24 24">
+                        <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+                    </svg>
+                </a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

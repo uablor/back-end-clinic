@@ -70,10 +70,13 @@ export class UserRepositoryOrm implements UserRepository {
     });
     const savedEntity = await this.userRepository.save(userEntity);
     await this.sendMail.execute(
-      userEntity.email,
+      savedEntity.email,
       'Bienvenido a la plataforma',
-      'Bienvenido a la plataforma',
-      `http://localhost:3000/verify/${token}`,
+      'welcome',
+      {
+        name: savedEntity.username,
+        url: `http://localhost:3000/verify/${token}`,
+      },
     );
     return UserMapper.toDomain(savedEntity);
   }
@@ -154,12 +157,10 @@ export class UserRepositoryOrm implements UserRepository {
       const result = await this.transactionManagerService.runInTransaction(
         this.dataSource,
         async (manager) => {
-          const is_user = await manager
-            .getRepository(UserEntity)
-            .findOne({
-              where: { id: id },
-              relations: ['employee', 'employee.educations'],
-            });
+          const is_user = await manager.getRepository(UserEntity).findOne({
+            where: { id: id },
+            relations: ['employee', 'employee.educations'],
+          });
           if (!is_user) throw new NotFoundException('user not found');
           await manager.getRepository(UserEntity).softDelete({ id: id });
           if (is_user.employee) {

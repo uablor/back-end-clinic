@@ -40,6 +40,7 @@
     "dayjs": "^1.11.13",
     "dotenv": "^17.1.0",
     "glob": "^11.0.3",
+    "handlebars": "^4.7.8",
     "multer": "^2.0.2",
     "mysql2": "^3.14.1",
     "nodemailer": "^7.0.5",

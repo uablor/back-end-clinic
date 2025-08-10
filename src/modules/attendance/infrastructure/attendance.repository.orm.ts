@@ -98,17 +98,17 @@ export class AttendanceRepositoryOrm implements AttendanceRepository {
   }
 
   async update(id: number, attendance: Attendance): Promise<Attendance> {
-    const userEntity = await this.AttendanceRepository.findOne({
+    const existingAttendance = await this.AttendanceRepository.findOne({
       where: { id },
       relations: ['clinic', 'user'],
     });
-    if (!userEntity) throw new NotFoundException('attendance not found');
-    const updatedUser = AttendanceMapper.toOrm(attendance);
+    if (!existingAttendance) throw new NotFoundException('attendance not found');
 
-    const updated = await this.AttendanceRepository.save({
-      ...userEntity,
-      ...updatedUser,
+    const updatedAttendance = AttendanceMapper.toOrm(attendance);
+    const newAttendance = await this.AttendanceRepository.create({
+      ...existingAttendance,
+      ...updatedAttendance,
     });
-    return AttendanceMapper.toDomain(updated);
+    return AttendanceMapper.toDomain(await this.AttendanceRepository.save(newAttendance));
   }
 }

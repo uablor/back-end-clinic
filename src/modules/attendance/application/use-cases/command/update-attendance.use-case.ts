@@ -66,6 +66,7 @@ export class UpdateAttendanceUseCase {
     }
 
     const attendanceUpdate = new Attendance({
+      id: id,
       date: attendance.date,
       clinicId: user.clinic.id,
       userId: userId,

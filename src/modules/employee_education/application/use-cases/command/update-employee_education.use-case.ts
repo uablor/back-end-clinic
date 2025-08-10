@@ -15,7 +15,6 @@ export class UpdateEducationUseCase {
         const education = new EmployeeEducationsEntity();
         education.level = dto.level || educationExists.level;
         education.field_of_study = dto.field_of_study || educationExists.field_of_study;
-        education.current_occupation = dto.current_occupation || educationExists.current_occupation;
         education.status = dto.status || educationExists.status;
         education.employee_id = EmployeeMapper.toOrm(educationExists.employee_id);
         return this.educationRepository.update(id, Employee_educationMapper.toDomain(education))

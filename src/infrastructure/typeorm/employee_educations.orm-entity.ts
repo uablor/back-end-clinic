@@ -20,9 +20,6 @@ export class EmployeeEducationsEntity extends SharedBaseEntity {
   @Column()
   field_of_study: string; 
 
-  @Column()
-  current_occupation: string;
-
   @Column({
     type: 'enum',
     enum: EducationStatus,

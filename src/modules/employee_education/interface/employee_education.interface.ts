@@ -6,7 +6,6 @@ export interface Employee_educationProps {
     level: string
     field_of_study: string
     current_occupation: string
-    work_experience: number
     status: EducationStatus
     employee_id : Employee | null
     createdAt?: Date

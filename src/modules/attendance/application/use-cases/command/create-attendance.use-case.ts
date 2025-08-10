@@ -45,7 +45,7 @@ export class CreateAttendanceUseCase {
     const endOfDay = now.endOf('day').toDate();
 
     const existingAttendance = await this.attendanceRepository.findByDateRangeAndUserId(
-        'user_id',
+        'userId',
         userId,
         startOfDay,
         endOfDay,

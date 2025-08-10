@@ -13,14 +13,16 @@ export class EmployeeEducationsEntity extends SharedBaseEntity {
     onDelete: 'CASCADE',
   })
   employee_id: EmployeeEntity;
+  
   @Column()
-  level: string; // e.g., "Bachelor's", "Master's"
+  level: string; 
+
   @Column()
-  field_of_study: string; // e.g., "Computer Science", "Business Administration"
+  field_of_study: string; 
+
   @Column()
-  current_occupation: string; // e.g., "Software Engineer", "Data Analyst"
-  @Column({ nullable: true })
-  work_experience: number;
+  current_occupation: string;
+
   @Column({
     type: 'enum',
     enum: EducationStatus,

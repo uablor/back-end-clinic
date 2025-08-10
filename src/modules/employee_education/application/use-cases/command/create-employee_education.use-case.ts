@@ -22,7 +22,6 @@ export class CreateEducationUseCase {
         education.level = dto.level;
         education.field_of_study = dto.field_of_study;
         education.current_occupation = dto.current_occupation;
-        education.work_experience = dto.work_experience;
         education.status = dto.status;
         education.employee_id = EmployeeOrm;
         return this.educationRepository.save(Employee_educationMapper.toDomain(education))

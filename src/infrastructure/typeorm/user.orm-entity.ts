@@ -1,11 +1,10 @@
 // user.entity.ts
-import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn, ManyToOne, OneToMany, ManyToMany, JoinTable, JoinColumn, OneToOne } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, OneToMany, ManyToMany, JoinTable, JoinColumn, OneToOne } from 'typeorm';
 import { RoleEntity } from './role.orm-entity';
 import { PermissionsEntity } from './permissions.orm-entity';
 import { ClinicEntity } from './clinic.orm-entity';
 import { AttendanceEntity } from './attendance.orm-entity';
 import { EmployeeEntity } from './employee.orm-entity';
-import { join } from 'path';
 import { SharedBaseEntity } from 'src/shared/base/baseEntity';
 
 @Entity('users')

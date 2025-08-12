@@ -60,7 +60,7 @@ export class EmployeeRepositoryOrm implements EmployeeRepository {
             'welcome',
             {
               name: savedUser.username,
-              url: `https://fantastic-cajeta-a205cf.netlify.app/verify-email?token=${token}`,
+              url: `https://sysamay-clinic.netlify.app/verify-email?token=${token}`,
             },
           );
           return EmployeeMapper.toDomain(savedEmployee);

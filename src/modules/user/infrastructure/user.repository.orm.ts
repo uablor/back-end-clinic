@@ -75,7 +75,7 @@ export class UserRepositoryOrm implements UserRepository {
       'welcome',
       {
         name: savedEntity.username,
-        url: `http://localhost:3000/verify/${token}`,
+        url: `https://fantastic-cajeta-a205cf.netlify.app/verify-email?token=${token}`,
       },
     );
     return UserMapper.toDomain(savedEntity);

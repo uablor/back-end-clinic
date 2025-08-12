@@ -25,38 +25,31 @@ export class RoleController {
         private readonly getOneRoleUseCase: GetOneRoleUseCase,
         private readonly restoreRoleUseCase: RestoreRoleUseCase
     ) { }
-    @Permissions('create_role')
     @Post()
     async createRole(@Body() dto: CreateRoleDto): Promise<ResponceRole> {
         return RoleMapper.toResponse(await this.createRoleUseCase.execute(dto));
     }
-    @Permissions('get_all_role')
     @Get()
     async getAllRole(@Query() query: PaginationDto): Promise<PaginatedResponse<ResponceRole>> {
         const roles = await this.getAllRoleUseCase.execute(query);
         return RoleMapper.toResponseList(roles.data, roles.pagination);
     }
-    @Permissions('get_one_role')
     @Get(':id')
     async getOneRole(@Param('id') id: number): Promise<ResponceRole> {
         return RoleMapper.toResponse(await this.getOneRoleUseCase.execute(id));
     }
-    @Permissions('update_role')
     @Patch(':id')
     async updateRole(@Param('id') id: number, @Body() dto: CreateRoleDto): Promise<ResponceRole> {
         return RoleMapper.toResponse(await this.updateRoleUseCase.execute(id, dto));
     }
-    @Permissions('hard_delete_role')
     @Delete('hard/:id')
     async hardDeleteRole(@Param('id') id: number): Promise<{ message: string }> {
         return await this.hardDeleteRoleUseCase.execute(id);
     }
-    @Permissions('soft_delete_role')
     @Delete('soft/:id')
     async softDeleteRole(@Param('id') id: number): Promise<{ message: string }> {
         return await this.softDeleteRoleUseCase.execute(id);
     }
-    @Permissions('restore_role')
     @Patch('restore/:id')
     async restoreRole(@Param('id') id: number): Promise<{ message: string }> {
         return await this.restoreRoleUseCase.execute(id);

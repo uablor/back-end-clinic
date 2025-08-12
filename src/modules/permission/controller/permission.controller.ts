@@ -8,7 +8,6 @@ export class PermissionController {
     constructor(
         private readonly getAllPermssionUseCase: GetAllPermssionUseCase
     ) { }
-    @Permissions('get_all_permssion')
     @Get()
     getAll() {
         return this.getAllPermssionUseCase.execute()

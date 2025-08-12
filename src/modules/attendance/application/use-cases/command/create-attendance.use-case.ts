@@ -91,7 +91,7 @@ export class CreateAttendanceUseCase {
     const attendance = new Attendance({
       date: now.toDate(),
       check_in_time: now.format('HH:mm:ss'),
-      check_out_time: '',
+      check_out_time: null,
       status,
       note: '',
       clinicId: user.clinic.id,

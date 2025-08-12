@@ -9,8 +9,8 @@ export class Attendance {
   public userId: number;
   public clinicId: number;
   public date: Date;
-  public check_in_time: string;
-  public check_out_time: string;
+  public check_in_time: string | null;
+  public check_out_time: string | null;
   public status: AttendanceStatus;
   public note: string;
 
@@ -30,8 +30,8 @@ export class Attendance {
     this.userId = props.userId;
     this.clinicId = props.clinicId;
     this.date = props.date;
-    this.check_in_time = props.check_in_time;
-    this.check_out_time = props.check_out_time;
+    this.check_in_time = props.check_in_time ?? null;
+    this.check_out_time = props.check_out_time ?? null;
     this.status = props.status ?? AttendanceStatus.PRESENT;
     this.note = props.note;
 

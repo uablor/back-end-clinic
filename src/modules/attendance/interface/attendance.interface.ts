@@ -7,8 +7,8 @@ export interface AttendanceProps {
   userId: number;
   clinicId: number;
   date: Date;
-  check_out_time: string;
-  check_in_time: string;
+  check_out_time: string | null;
+  check_in_time: string | null;
   // latitude: number;
   // longitude: number;
   // accuracy: number;

@@ -30,7 +30,7 @@ export class ClinicController {
         private readonly hardDeleteClinicUseCase: HardDeleteClinicUseCase,
         private readonly restoreClinicUseCase: RestoreClinicUseCase
     ){}
-    @Public()
+
     @Post()
     async create(@Body() Employee: CreateClinicDto){
         return await this.createCliniceeUseCase.execute(Employee);

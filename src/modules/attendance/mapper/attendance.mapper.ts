@@ -13,8 +13,8 @@ export class AttendanceMapper {
       userId: entity.userId,
       clinicId: entity.clinicId,
       date: entity.date,
-      check_in_time: entity.check_in_time ?? undefined,
-      check_out_time: entity.check_out_time ?? undefined,
+      check_in_time: entity.check_in_time ?? null,
+      check_out_time: entity.check_out_time ?? null,
       status: entity.status,
       note: entity.note ?? undefined,
       user: entity.user ? UserMapper.toDomain(entity.user) : undefined,
@@ -31,8 +31,8 @@ export class AttendanceMapper {
     entity.userId = domain.userId;
     entity.clinicId = domain.clinicId;
     entity.date = domain.date;
-    entity.check_in_time = domain.check_in_time;
-    entity.check_out_time = domain.check_out_time;
+    entity.check_in_time = domain.check_in_time!;
+    entity.check_out_time = domain.check_out_time!;
     entity.status = domain.status;
     entity.note = domain.note;
 

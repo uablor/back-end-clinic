@@ -45,7 +45,7 @@ export class AttendanceController {
   async create(
     @Body() dto: CreateAttendanceDto,
     @CurrentUser() user: ProfiledDto,
-  ): Promise<Attendance> {
+  ): Promise<Attendance | string> {
     return this.createAttendUseCase.execute(dto, user.sub);
   }
 

@@ -31,7 +31,7 @@ export class CreateAttendanceUseCase {
     private readonly userRepository: UserRepository,
   ) {}
 
-  async execute(dto: CreateAttendanceDto, userId: number): Promise<Attendance | string> {
+  async execute(dto: CreateAttendanceDto, userId: number): Promise<Attendance | object> {
     const user = await this.userRepository.findOne(userId);
     if (!user) throw new NotFoundException('User not found');
     if (!user?.clinic?.id) throw new NotFoundException('Clinic not found');
@@ -52,7 +52,7 @@ export class CreateAttendanceUseCase {
       );
 
     if (existingAttendance) {
-      return 'You have already checked in today.';
+      return { message: 'You have already checked in today.'};
     }
 
     const { latitude: userLat, longitude: userLng } = dto;
@@ -67,7 +67,7 @@ export class CreateAttendanceUseCase {
     const isInside = distance <= radius;
 
     if (!isInside) {
-      return 'You are outside the clinic zone';
+      return { message: 'You are outside the clinic zone'};
     }
 
     const [startHour, startMinute] = clinic.start_time_work

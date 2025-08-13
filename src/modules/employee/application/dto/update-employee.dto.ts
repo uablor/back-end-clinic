@@ -1,6 +1,8 @@
+import { PartialType } from '@nestjs/mapped-types';
+import { CreateEmployeeDto } from './create-employee.dto';
+import { IsOptional } from 'class-validator';
 
-import { OmitType, PartialType } from "@nestjs/mapped-types";
-import { CreateEmployeeDto } from "./create-employee.dto";
-
-export class UpdateEmployeeDto extends PartialType(OmitType(CreateEmployeeDto, ['password'] as const)) {}
-
+export class UpdateEmployeeDto extends PartialType(CreateEmployeeDto) {
+  @IsOptional()
+  password?: string;
+}
